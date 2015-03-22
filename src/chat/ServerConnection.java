@@ -66,7 +66,7 @@ public class ServerConnection implements AutoCloseable
       {
          handler.onStop();
       }
-      else //if (msg.startsWith("/message"))
+      else if (msg.startsWith("/message"))
       {
          int fstSpace = msg.indexOf(' ');
          int sndSpace = msg.indexOf(' ', fstSpace + 1);
