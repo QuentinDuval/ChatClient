@@ -4,18 +4,14 @@ public class Main
 {
    public static void main(String[] args) throws Exception
    {
-      if (args.length < 3)
+      if (args.length < 2)
       {
-         System.out.println("Except 3 arguments: name, host and port.");
+         System.out.println("Except 2 arguments: host and port.");
          return;
       }
-      
-      int hostPort = Integer.parseInt(args[2]);
-      try (ServerConnection connection = ServerConnectionFactory.init(args[0], args[1], hostPort))
-      {
-         ChatClient client = new ChatClient(connection);
-         ChatClientFrame frame = new ChatClientFrame(client);
-         client.run((from, msg) -> frame.addMessage(from, msg));
-      }
+
+      int hostPort = Integer.parseInt(args[1]);
+      ConnectionManager connectionHandler = new ConnectionManager(args[0], hostPort);
+      new MainFrame(connectionHandler);
    }
 }
