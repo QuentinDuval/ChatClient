@@ -68,11 +68,11 @@ public class ServerConnection implements AutoCloseable
       }
       else if (msg.startsWith("/message"))
       {
-         int fstSpace = msg.indexOf(' ');
-         int sndSpace = msg.indexOf(' ', fstSpace + 1);
+         int fstSpace = msg.indexOf(' ') + 1;
+         int sndSpace = msg.indexOf(' ', fstSpace);
          if (-1 != sndSpace)
          {
-            handler.onMessage(msg.substring(fstSpace, sndSpace), msg.substring(sndSpace));
+            handler.onMessage(msg.substring(fstSpace, sndSpace), msg.substring(sndSpace + 1));
          }
       }
    }
