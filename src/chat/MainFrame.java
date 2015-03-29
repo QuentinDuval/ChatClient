@@ -83,6 +83,18 @@ public class MainFrame extends JFrame implements IConnectionManager, ServerConne
       logOff();
    }
    
+   @Override
+   public void onConnection(String from)
+   {
+      m_chatPanel.notifyConnection(from);
+   }
+
+   @Override
+   public void onDisconnection(String from)
+   {
+      m_chatPanel.notifyDisconnection(from);
+   }
+   
    private void initLayout()
    {
       JPanel panel = new JPanel();

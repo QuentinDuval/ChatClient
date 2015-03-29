@@ -39,6 +39,16 @@ public class ChatPanel extends JPanel implements ActionListener
       m_received.append(message + "\n");
    }
    
+   void notifyConnection(String name)
+   {
+      m_received.append("[" + name + "] connected.\n");
+   }
+   
+   void notifyDisconnection(String name)
+   {
+      m_received.append("[" + name + "] disconnected.\n");
+   }
+   
    @Override
    public void actionPerformed(ActionEvent e)
    {

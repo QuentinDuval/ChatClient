@@ -16,6 +16,8 @@ public class ServerConnection implements AutoCloseable
    public interface MessageHandler
    {
       public void onMessage(String from, String message);
+      public void onConnection(String from);
+      public void onDisconnection(String from);
       public void onStop();
    }
    
@@ -62,6 +64,7 @@ public class ServerConnection implements AutoCloseable
    public void blockingRead(MessageHandler handler) throws IOException
    {
       String msg = m_input.readLine();
+      System.out.println(msg);
       if ("/shut" == msg)
       {
          handler.onStop();
@@ -74,6 +77,18 @@ public class ServerConnection implements AutoCloseable
          {
             handler.onMessage(msg.substring(fstSpace, sndSpace), msg.substring(sndSpace + 1));
          }
+      }
+      else if (msg.startsWith("/newconnection"))
+      {
+         int space = msg.indexOf(' ');
+         if (-1 != space)
+            handler.onConnection(msg.substring(space + 1));
+      }
+      else if (msg.startsWith("/disconnection"))
+      {
+         int space = msg.indexOf(' ');
+         if (-1 != space)
+            handler.onDisconnection(msg.substring(space + 1));
       }
    }
    
